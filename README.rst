@@ -8,13 +8,14 @@ This command was inspired by Linux `cal command <https://en.wikipedia.org/wiki/C
 
 Why the project is useful
 --------------------------
-I'm using windows and this command doesn't exist in this os, at the same time I was learning Rust, so I used it as a small project.
+I'm using windows and this command doesn't exist in this os, although it can run in linux/MacOs.
+I was learning Rust, so I used it as a learning *small* project.
 
 How users can get started with the project
 ------------------------------------------
 1. Just clone the repo.
-2. Run `cargo run`
-3. You can build `cargo build --release` and then copy the executable in an accessible folder eg: c:\windows\system32
+2. Run ``cargo run``
+3. You can build using ``cargo build --release``, and then copy the executable in an accessible folder eg: c:\windows\system32
 4. You can use the following options:
 
 Options:
