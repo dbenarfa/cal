@@ -22,35 +22,29 @@ struct Args {
     #[clap(short, long)]
     noselect: bool,
 }
-fn main() {
-    // Command line option parsing
-    let args = Args::parse();
-    // The current date and time
-    let current;
-    // let current_month: u32;
-    if !(1..13).contains(&args.month) {
-        eprintln!(
-            "{}: {}",
-            "Error".yellow(),
-            "Month must be between 1 an 12".red()
-        );
-        exit(0);
-    }
 
-    if args.year < 1900 || args.year > 96363 {
-        eprintln!(
-            "{}: {}",
-            "Error".yellow(),
-            "Year must be between 1900 and 96363".red()
-        );
-        exit(0);
-    }
-
-    current = Local.ymd(args.year, args.month, 1);
+//
+// Print the calendar in then terminal
+//
+fn print_calendar(year: i32, month: u32, day: u32) {
+    let current = Local.ymd(year, month, 1);
 
     // The first day of the month
-    let mut cal = Local.ymd(args.year, args.month, 1);
+    let mut cal = Local.ymd(year, month, 1);
 
+    // Validate the day
+    if cal.with_day(day) == None {
+        let formatted_err = format!(
+            "Day must be between 1 and {}",
+            (NaiveDate::from_ymd(year, month + 1, 1) - Duration::days(1))
+                .day()
+                .to_string()
+                .red()
+        )
+        .red();
+        eprintln!("{}: {}", "Error".yellow(), formatted_err);
+        exit(0);
+    }
     println!("");
 
     let formatted_date = current.format("%B %Y");
@@ -103,7 +97,7 @@ fn main() {
             b = 255;
         }
         // If we are at the current day end/or user selected day, we highlight it with a blue bg.
-        if !args.noselect && (args.select == cal.day() || cal == Local::today()) {
+        if day > 0 && (day == cal.day() || cal == Local::today()) {
             print!(
                 "{:0>2} ",
                 cal.day()
@@ -121,6 +115,37 @@ fn main() {
         // Go to the next day
         cal = cal + Duration::days(1);
     }
+}
+
+fn main() {
+    // Command line option parsing
+    let args = Args::parse();
+    let day;
+    // The current date and time
+    // let current_month: u32;
+    if !(1..13).contains(&args.month) {
+        eprintln!(
+            "{}: {}",
+            "Error".yellow(),
+            "Month must be between 1 an 12".red()
+        );
+        exit(0);
+    }
+
+    if args.year < 1900 || args.year > 96363 {
+        eprintln!(
+            "{}: {}",
+            "Error".yellow(),
+            "Year must be between 1900 and 96363".red()
+        );
+        exit(0);
+    }
+    if args.noselect {
+        day = 0;
+    } else {
+        day = args.select;
+    }
+    print_calendar(args.year, args.month, day);
     // Print a blank line between the calender and the terminal prompt
     println!("\n");
 }
