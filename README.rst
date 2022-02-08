@@ -15,7 +15,7 @@ How users can get started with the project
 ------------------------------------------
 1. Just clone the repo.
 2. Run ``cargo run``
-3. You can build using ``cargo build --release``, and then copy the executable in an accessible folder eg: c:\windows\system32
+3. You can build using ``cargo build --release``, and then copy the executable in an accessible folder eg: c:\\windows\\system32
 4. You can use the following options:
 
 Options:
