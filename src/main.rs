@@ -15,18 +15,19 @@ struct Args {
     /// The year
     #[clap(short, long, default_value_t = Local::today().year())]
     year: i32,
+
     /// Select a specific day in the calendar
     #[clap(short, long, default_value_t = Local::today().day())]
-    select: u32,
+    day: u32,
     /// Deactivate the highlighting of days in the calendar
-    #[clap(short, long)]
+    #[clap(short, long, conflicts_with("day"))]
     noselect: bool,
 }
 
 //
-// Print the calendar in then terminal
+// Print the calendar in the terminal
 //
-fn print_calendar(year: i32, month: u32, day: u32) {
+fn print_calendar(year: i32, month: u32, day: u32, highlight: bool) {
     let current = Local.ymd(year, month, 1);
 
     // The first day of the month
@@ -96,8 +97,9 @@ fn print_calendar(year: i32, month: u32, day: u32) {
             g = 255;
             b = 255;
         }
-        // If we are at the current day end/or user selected day, we highlight it with a blue bg.
-        if day > 0 && (day == cal.day() || cal == Local::today()) {
+        // If we are at the current day end/or user requested to highlight a day (-d), we highlight it with a blue bg.
+        // Or of the user requested not to highlight a day, then no day will be highlighted.
+        if !highlight && (day == cal.day() || cal == Local::today()) {
             print!(
                 "{:0>2} ",
                 cal.day()
@@ -120,7 +122,6 @@ fn print_calendar(year: i32, month: u32, day: u32) {
 fn main() {
     // Command line option parsing
     let args = Args::parse();
-    let day;
     // The current date and time
     // let current_month: u32;
     if !(1..13).contains(&args.month) {
@@ -140,12 +141,7 @@ fn main() {
         );
         exit(0);
     }
-    if args.noselect {
-        day = 0;
-    } else {
-        day = args.select;
-    }
-    print_calendar(args.year, args.month, day);
+    print_calendar(args.year, args.month, args.day, args.noselect);
     // Print a blank line between the calender and the terminal prompt
     println!("\n");
 }
