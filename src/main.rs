@@ -127,7 +127,7 @@ fn main() {
         eprintln!(
             "{}: {}",
             "Error".yellow(),
-            "Month must be between 1 an 12".red()
+            "Month must be between 1 and 12".red()
         );
         exit(0);
     }
