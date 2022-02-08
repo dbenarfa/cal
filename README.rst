@@ -20,12 +20,13 @@ How users can get started with the project
 
 Options:
 ~~~~~~~~
- -h, --help               Print help information
- -m, --month <MONTH>      The month [default: current month]
- -s, --select <SELECT>    Select a specific day in the calendar [default: current day]
- -V, --version            Print version information
- -y, --year <YEAR>        The year [default: current year]
-
+ -d, --day <DAY>        Select a specific day in the calendar [default: 9]
+ -h, --help             Print help information
+ -m, --month <MONTH>    The month [default: 2]
+ -n, --noselect         Deactivate the highlighting of days in the calendar
+ -V, --version          Print version information
+ -y, --year <YEAR>      The year [default: 2022]
+ 
 Example:
 ~~~~~~~~
     >>> cal
