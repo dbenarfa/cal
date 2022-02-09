@@ -4,7 +4,7 @@ CLI Calendar command
 
 What the project does
 ---------------------
-This command was inspired by Linux _`cal command <https://linuxhint.com/the-linux-cal-command/>`_ that shows the current month calendar as output (by default), developed using `Rust programming language <https://www.rust-lang.org/>`_.
+This command was inspired by Linux `Cal command <https://linuxhint.com/the-linux-cal-command/>`_ that shows the current month calendar as output (by default), developed using `Rust programming language <https://www.rust-lang.org/>`_.
 
 Why the project is useful
 --------------------------
