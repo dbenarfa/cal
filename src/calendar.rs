@@ -99,14 +99,27 @@ pub fn print_calendar(year: i32, month: u32, day: u32, highlight: bool) -> Resul
         }
         // If we are at the current day end/or user requested to highlight a day (-d), we highlight it with a blue bg.
         // Or of the user requested not to highlight a day, then no day will be highlighted.
-        if !highlight && (day == cal.day() || cal == Local::today()) {
-            print!(
-                "{:0>2} ",
-                cal.day()
-                    .to_string()
-                    .truecolor(r, g, b)
-                    .on_truecolor(0, 119, 194)
-            );
+
+        if !highlight {
+            if cal == Local::today() {
+                print!(
+                    "{:0>2} ",
+                    cal.day()
+                        .to_string()
+                        .truecolor(r, g, b)
+                        .on_truecolor(0, 119, 194)
+                );
+            } else if day == cal.day() {
+                print!(
+                    "{:0>2} ",
+                    cal.day()
+                        .to_string()
+                        .truecolor(0, 0, 0)
+                        .on_truecolor(255, 235, 149)
+                );
+            } else {
+                print!("{:0>2} ", cal.day().to_string().truecolor(r, g, b));
+            }
         } else {
             print!("{:0>2} ", cal.day().to_string().truecolor(r, g, b));
         }
