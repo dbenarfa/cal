@@ -17,7 +17,7 @@ struct Args {
     year: i32,
 
     /// Select a specific day in the calendar
-    #[clap(short, long, default_value_t = Local::today().day())]
+    #[clap(short, long, default_value_t = Local::today().day(), conflicts_with("day"))]
     day: u32,
     /// Deactivate the highlighting of days in the calendar
     #[clap(short, long, conflicts_with("day"))]
