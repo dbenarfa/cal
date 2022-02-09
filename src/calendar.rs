@@ -8,7 +8,25 @@ use colored::*;
 //
 // Print the calendar in the terminal
 //
-pub fn print_calendar(year: i32, month: u32, day: u32, highlight: bool) {
+pub fn print_calendar(year: i32, month: u32, day: u32, highlight: bool) -> Result<(), String> {
+    if !(1..13).contains(&month) {
+        format!(
+            "{}: {}",
+            "Error".yellow(),
+            "Month must be between 1 and 12".red()
+        );
+        exit(0);
+    }
+
+    // Validate the year
+    if year < 1900 || year > 96363 {
+        format!(
+            "{}: {}",
+            "Error".yellow(),
+            "Year must be between 1900 and 96363".red()
+        );
+        exit(0);
+    }
     let current = Local.ymd(year, month, 1);
 
     // The first day of the month
@@ -99,4 +117,5 @@ pub fn print_calendar(year: i32, month: u32, day: u32, highlight: bool) {
         // Go to the next day
         cal = cal + Duration::days(1);
     }
+    Ok(())
 }
