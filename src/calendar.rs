@@ -66,7 +66,7 @@ pub fn print_calendar(year: i32, month: u32, day: u32, highlight: bool) -> Resul
         "Sa".truecolor(r, g, b),
     );
 
-    // Print the current month and the year
+    // Print the current month and year
     println!("{:^1$}", formatted_date, 20);
 
     // Print the calendar header
@@ -109,7 +109,7 @@ pub fn print_calendar(year: i32, month: u32, day: u32, highlight: bool) -> Resul
                         .truecolor(r, g, b)
                         .on_truecolor(0, 119, 194)
                 );
-            } else if day == cal.day() {
+            } else if day == cal.day() && day != Local::today().day() {
                 print!(
                     "{:0>2} ",
                     cal.day()
