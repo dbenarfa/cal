@@ -5,27 +5,40 @@ use chrono::Duration;
 
 use colored::*;
 
+// Validate the year
+fn is_valid_year(year: i32) -> bool {
+    return year >= 1900 && year <= 96363;
+}
+
+// Refactoring: Moving month and year validation to separate functions.
+
+// Validate the month
+fn is_valid_month(month: u32) -> bool {
+    if !(1..13).contains(&month) {
+        return false;
+    }
+    true
+}
+
 //
 // Print the calendar in the terminal
 //
 pub fn print_calendar(year: i32, month: u32, day: u32, highlight: bool) -> Result<(), String> {
-    if !(1..13).contains(&month) {
-        format!(
+    // Validate the month
+    if !is_valid_month(month) {
+        return Err(format!(
             "{}: {}",
             "Error".yellow(),
             "Month must be between 1 and 12".red()
-        );
-        exit(0);
+        ));
     }
-
     // Validate the year
-    if year < 1900 || year > 96363 {
-        format!(
+    if !is_valid_year(year) {
+        return Err(format!(
             "{}: {}",
             "Error".yellow(),
             "Year must be between 1900 and 96363".red()
-        );
-        exit(0);
+        ));
     }
     let current = Local.ymd(year, month, 1);
 

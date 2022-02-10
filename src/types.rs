@@ -11,10 +11,10 @@ pub struct Args {
     #[clap(short, long, default_value_t = Local::today().year())]
     pub year: i32,
 
-    /// Select a specific day in the calendar
+    /// Highlight a specific day in the calendar
     #[clap(short, long, default_value_t = Local::today().day(), conflicts_with("noselect"))]
     pub day: u32,
-    /// Deactivate the highlighting of days in the calendar
+    /// Deactivate the highlighting of days in the calendar (This option can't be used with the day (-d) option)
     #[clap(short, long, conflicts_with("day"))]
     pub noselect: bool,
 }
