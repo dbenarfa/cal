@@ -7,7 +7,8 @@ use colored::*;
 
 // Validate the year
 fn is_valid_year(year: i32) -> bool {
-    return year >= 1900 && year <= 96363;
+    // year >= 1900 && year <= 96363
+    (1900..=96363).contains(&year)
 }
 
 // Refactoring: Moving month and year validation to separate functions.
@@ -58,7 +59,7 @@ pub fn print_calendar(year: i32, month: u32, day: u32, highlight: bool) -> Resul
         eprintln!("{}: {}", "Error".yellow(), formatted_err);
         exit(0);
     }
-    println!("");
+    println!();
 
     let formatted_date = current.format("%B %Y");
 
@@ -83,7 +84,7 @@ pub fn print_calendar(year: i32, month: u32, day: u32, highlight: bool) -> Resul
     println!("{:^1$}", formatted_date, 20);
 
     // Print the calendar header
-    print!("{}\n", su_sa);
+    println!("{}", su_sa);
 
     // Print the first day of the month
     // Position variable is used to print the first day of the month at the correct day name position
@@ -138,7 +139,7 @@ pub fn print_calendar(year: i32, month: u32, day: u32, highlight: bool) -> Resul
         }
         // Check if we are at the end of the calendar column (Sa) we return to the next line
         if counter % 7 == 0 {
-            println!("");
+            println!();
         }
         // Go to the next day
         cal = cal + Duration::days(1);
